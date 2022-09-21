@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import {futimes} from "fs";
+import {FilterType} from "../App";
 
 type TaskType = {
     id: number
@@ -11,6 +12,7 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: number) => void
+    filtersHandler: (nameButton: FilterType) => void
 }
 
 function Todolist(props: PropsType) {
@@ -33,9 +35,9 @@ function Todolist(props: PropsType) {
                 })}
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <button onClick={() => props.filtersHandler("All")}>All</button>
+                <button onClick={() => props.filtersHandler("Active")}>Active</button>
+                <button onClick={() => props.filtersHandler("Completed")}>Completed</button>
             </div>
         </div>
     );
