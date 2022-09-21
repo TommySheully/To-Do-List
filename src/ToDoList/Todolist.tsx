@@ -1,4 +1,5 @@
 import React from "react";
+import {futimes} from "fs";
 
 type TaskType = {
     id: number
@@ -9,6 +10,7 @@ type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
+    removeTask: (taskId: number) => void
 }
 
 function Todolist(props: PropsType) {
@@ -20,9 +22,15 @@ function Todolist(props: PropsType) {
                 <button>+</button>
             </div>
             <ul>
-                <li><input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span></li>
-                <li><input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[0].title}</span></li>
-                <li><input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[0].title}</span></li>
+                {props.tasks.map((task) => {
+                        return (
+                            <li key={task.id}>
+                                <input type="checkbox" checked={task.isDone}/>
+                                <span>{task.title}</span>
+                                <button onClick={() => {props.removeTask(task.id)}} >✖</button>
+                            </li>
+                        )
+                })}
             </ul>
             <div>
                 <button>All</button>
